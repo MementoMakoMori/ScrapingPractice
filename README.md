@@ -1,7 +1,7 @@
 ## README: Scraping for a Job
 ### R. Holley, September 17, 2020
 
-One afternoon, I decided to ignore my pressing need to apply for jobs, and threw together this script instead. There's a full report (html page on gh-pages). If you're interested in it, here's the basics.
+One afternoon, I decided to ignore my pressing need to apply for jobs, and threw together this script instead. There's a [full report here(html page on gh-pages)](https://mementomakomori.github.io/ScrapingPractice/). If you're interested in it, here's the basics.
 
 ### INPUT
 Unless Indeed.com changes their url schema, no dataset is necessary to run this code; it is a scraper for job posts on Indeed.com using the search term 'data scientist' with the filter experience: entry level. Depending on how much you want to scrape, it could take a while.
@@ -31,4 +31,8 @@ R packages:
 * index.html
 * index_cache folder
 * index_files folder
+* LICENSE 
+
+### THANK YOU
+[This page from Scraping Bee](https://www.scrapingbee.com/blog/web-scraping-r/) got me straight to the basics of webscraping with R, and I reviewed Xpath syntax on [w3schools.com](https://www.w3schools.com/xml/xpath_intro.asp).
 
