@@ -201,11 +201,7 @@ library(extrafont)</code></pre>
 <div id="scraping" class="section level3">
 <h3>Scraping</h3>
 <p>After a cursory glance at source pages for Indeed.com and Linkedin, I've decided to scrape from Indeed. It seems a bit simpler to me, but then again I don't know much about web design.</p>
-Indeed lists 15 jobs per page, in a left pane. Each job tile in the list has a 'job key' (attribute <em>data-jk</em> of the job tile's *
-<div>
-<ul>
-<li>element) that is used to generate the url for each individual posting. The right pane is an embed (not in the page's source) of the individual post, with the full job description. I want to scrape that job description, but to automate it I'll need to get the job keys from the left pane. The search term 'data scientist' and filter 'experience level: entry level' are reflected in the url. I'm only scraping the first 150 results, because the relevance to the search term decreases along the results. The first bit of code, generating the urls I want to scrape, could be easily changed to allow for more results or different filters.</li>
-</ul>
+<p>Indeed lists 15 jobs per page, in a left pane. Each job tile in the list has a 'job key' (attribute <em>data-jk</em> of the job tile's <em>div</em> element) that is used to generate the url for each individual posting. The right pane is an embed (not in the page's source) of the individual post, with the full job description. I want to scrape that job description, but to automate it I'll need to get the job keys from the left pane. The search term 'data scientist' and filter 'experience level: entry level' are reflected in the url. I'm only scraping the first 150 results, because the relevance to the search term decreases along the results. The first bit of code, generating the urls I want to scrape, could be easily changed to allow for more results or different filters.</p>
 <p>Note 1: this is not exactly reproducible, obviously because job listings frequently change. Indeed.com also seemed to prioritze results near my location, despite me not including a specific location search filter.</p>
 <p>Note 2: The ContentScraper function I used from the Rcrawler package could take a while to run depending on how many pages you're scraping.</p>
 <pre class="r"><code>## the pages I want to scrape
