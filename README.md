@@ -29,4 +29,6 @@ R packages:
 * scraping.R
 * README.md
 * index.html
+* index_cache folder
+* index_files folder
 
