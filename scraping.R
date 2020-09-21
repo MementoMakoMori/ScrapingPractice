@@ -5,6 +5,11 @@
 ## What should I focus on mastering for my career? SQL, Hadoop, Tableau?
 ## Pff, why would I decide when I could write a program to decide for me!
 
+## TO DO:
+## rvest function faster than Rcrawler?
+## automate for daily/weekly reports
+## find thrid-party list of tools instead of trying to think of my own
+
 library(Rcrawler)
 library(rvest)
 library(stringi)
@@ -29,13 +34,13 @@ summ_text <- ContentScraper(job_frames, XpathPatterns = "//div[@id='jobDescripti
 corp <- corpus(c(unlist(summ_text)))
 
 ## if just use a smple dfm and frequency plot...
-dfm(corp) %>% textstat_frequency() %>% .[1:10,] %>% plot(x=as.factor(.$feature), y=.$frequency)
+## dfm(corp) %>% textstat_frequency() %>% .[1:10,] %>% plot(x=as.factor(.$feature), y=.$frequency)
 ## the biggest results are 'and' and a comma. That's boring! I'll filter the text
 
 clean_tokens <- tokens(corp, what="word", remove_punct = TRUE, padding=FALSE, verbose=TRUE)
 clean_tokens <- tokens_remove(clean_tokens, pattern=stopwords("en"), case_insensitive=TRUE, padding=FALSE, verbose=TRUE)
 
-dfm(clean_tokens) %>% textstat_frequency() %>% .[1:10,] %>% plot(x=as.factor(.$feature), y=.$frequency)
+## dfm(clean_tokens) %>% textstat_frequency() %>% .[1:10,] %>% plot(x=as.factor(.$feature), y=.$frequency)
 
 ## I know you're probably judging my ugly charts right now
 ## so here's a pretty one
