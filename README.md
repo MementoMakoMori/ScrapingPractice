@@ -17,11 +17,11 @@ Platform: x86_64-w64-mingw32/x64 (64-bit)
 RStudio Version 1.1.463
 
 R packages:
-* Rcrawler
 * rvest
 * stringi
 * quanteda
 * stopwords
+* plyr
 * ggplot2
 * extrafont
 
