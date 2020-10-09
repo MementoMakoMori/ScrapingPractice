@@ -20,7 +20,6 @@ R packages:
 * rvest
 * stringi
 * quanteda
-* stopwords
 * plyr
 * ggplot2
 * extrafont
