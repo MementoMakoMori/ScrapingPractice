@@ -10,6 +10,7 @@
 ## find 3rd part list instead of trying to think up my own
 
 library(rvest)
+library(Rcrawler)
 library(stringi)
 library(quanteda)
 library(plyr)
@@ -26,10 +27,10 @@ jobIDs <- lapply(X=listHTML, FUN=stri_split_fixed, pattern="\"") %>% unlist()
 jobIDs <- jobIDs[seq.int(2, length(jobIDs), 3)]
 job_frames <- paste0("https://www.indeed.com/viewjob?viewtype=embedded&jk=", jobIDs)
 
-summ_text <- lapply(X=job_frames, FUN=read_html) %>% lapply(FUN=html_nodes, xpath = "//div[@id='jobDescriptionText']")
+summ_text <- lapply(X=job_frames, FUN=read_html) %>% lapply(FUN=html_nodes, xpath = "//div[@id='jobDescriptionText']") %>% lapply(FUN=html_text)
 
 ## scraping is done, now for language processing
-corp <- corpus(c(unlist(summ_text)))
+corp <- corpus(as.character(summ_text))
 clean_tokens <- tokens(corp, what="word", remove_punct = TRUE, split_hyphens = TRUE, remove_symbols = TRUE, padding=FALSE, verbose=TRUE)
 clean_tokens <- tokens_remove(clean_tokens, pattern=stopwords("en"), case_insensitive=TRUE, padding=FALSE, verbose=TRUE)
 freq_table <- dfm(clean_tokens) %>% textstat_frequency() %>% mutate(perc = 100*docfreq/length(summ_text))
