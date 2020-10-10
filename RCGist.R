@@ -8,13 +8,16 @@ library(ggplot2)
 library(extrafont)
 
 ## there are 15 jobs listed on each page of Indeed.com results
-list_pages <- paste0("https://www.indeed.com/jobs?q=data%20scientist&explvl=entry_level&start=", seq.int(0,90,15))
+locs <- c("Washington%2C+DC", "Boston%2C+MA")
+list_pages <- paste0("https://www.indeed.com/jobs?q=data%20scientist&explvl=entry_level&l=", locs) %>% lapply(FUN=paste0,"&start=",seq.int(0,60,15)) %>% unlist()
 listHTML <- lapply(X=list_pages, FUN=read_html) %>% lapply(FUN=html_nodes, xpath="//@data-jk")
 
 ## job keys (data-jk) combine with the frame url to bring up the full job descriptions
 jobIDs <- lapply(X=listHTML, FUN=stri_split_fixed, pattern="\"") %>% unlist()
 jobIDs <- jobIDs[seq.int(2, length(jobIDs), 3)]
 job_frames <- paste0("https://www.indeed.com/viewjob?viewtype=embedded&jk=", jobIDs)
+
+loc_text <- lapply(X=job_frames,FUN=read_html) %>% lapply(FUN=html_nodes, xpath="//div[@class='jobsearch-InlineCompanyRating icl-u-xs-mt--xs  icl-u-xs-mb--md']/div[3]/text()") %>% lapply(FUN=html_text)
 
 summ_text <- lapply(X=job_frames, FUN=read_html) %>% lapply(FUN=html_nodes, xpath = "//div[@id='jobDescriptionText']") %>% lapply(FUN=html_text)
 
@@ -23,6 +26,7 @@ corp <- corpus(as.character(summ_text))
 clean_tokens <- tokens(corp, what="word", remove_punct = TRUE, split_hyphens = TRUE, remove_symbols = TRUE, padding=FALSE, verbose=TRUE)
 clean_tokens <- tokens_remove(clean_tokens, pattern=stopwords("en"), case_insensitive=TRUE, padding=FALSE, verbose=TRUE)
 freq_table <- dfm(clean_tokens) %>% textstat_frequency() %>% mutate(perc = 100*docfreq/length(summ_text))
+
 ## filter for keywords that I select (introducing my own bias)
 stuff <- c("python", "sql", "nosql", "hadoop", "r", "tableau", "postgresql", "pyro", "pymc3", "stata", "spss", "oracle", "alteryx", "vba", "excel", "matlab", "java", "weka", "gephi", "numpy", "pandas", "mysql", "aws", "qlik", "power bi", "pyspark", "scala", "rstudio", "access")
 
