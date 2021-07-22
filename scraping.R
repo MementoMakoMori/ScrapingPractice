@@ -11,6 +11,7 @@
 ## add locations variable
 
 library(rvest)
+library(Rcrawler)
 library(stringi)
 library(quanteda)
 library(quanteda.textstats)
@@ -33,6 +34,7 @@ summ_text <- lapply(X=job_frames, FUN=html_element, xpath = "//div[@id='jobDescr
 
 ## scraping is done, now for language processing
 corp <- corpus(summ_text)
+
 clean_tokens <- tokens(corp, what="word", remove_punct = TRUE, split_hyphens = TRUE, remove_symbols = TRUE, padding=FALSE, verbose=TRUE)
 clean_tokens <- tokens_remove(clean_tokens, pattern=stopwords("en"), case_insensitive=TRUE, padding=FALSE, verbose=TRUE)
 #freq_table <- dfm(clean_tokens) %>% textstat_frequency() %>% mutate(perc = 100*docfreq/length(summ_text))

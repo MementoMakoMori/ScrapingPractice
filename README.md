@@ -39,4 +39,3 @@ R packages:
 
 ### THANK YOU
 [This page from Scraping Bee](https://www.scrapingbee.com/blog/web-scraping-r/) got me straight to the basics of webscraping with R, and I reviewed Xpath syntax on [w3schools.com](https://www.w3schools.com/xml/xpath_intro.asp).
-
